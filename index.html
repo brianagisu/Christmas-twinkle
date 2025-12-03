@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Christmas Countdown</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #0f4c27 0%, #165c3a 50%, #0a2e15 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            animation: snowfall 10s linear infinite;
+        }
+
+        @keyframes snowfall {
+            0% { text-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+            50% { text-shadow: 0 0 20px rgba(255, 255, 255, 0.3); }
+            100% { text-shadow: 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 20px rgba(255, 0, 0, 0.1); }
+            50% { box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 40px rgba(255, 0, 0, 0.2); }
+        }
+
+        h1 {
+            color: #fff;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+        }
+
+        .emoji {
+            font-size: 1.2em;
+            margin: 0 5px;
+        }
+
+        .countdown {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .countdown-item {
+            background: linear-gradient(135deg, #ff0000, #c41e3a);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .countdown-number {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .countdown-label {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.9em;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .wishes-section {
+            margin-top: 40px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 20px;
+            border-radius: 15px;
+            border-left: 4px solid #ffd700;
+        }
+
+        .wishes-section h2 {
+            color: #ffd700;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .wishes-list {
+            list-style: none;
+        }
+
+        .wishes-list li {
+            color: #fff;
+            padding: 15px;
+            margin: 8px 0;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid #ffd700;
+            animation: slideIn 0.5s ease-out;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s ease;
+        }
+
+        .wishes-list li:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .wishes-list li::before {
+            content: "✨ ";
+            color: #ffd700;
+            margin-right: 10px;
+        }
+
+        .wish-content {
+            flex: 1;
+        }
+
+        .wish-text {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .wish-author {
+            font-size: 0.85em;
+            color: rgba(255, 215, 0, 0.7);
+            font-style: italic;
+        }
+
+        .wish-actions {
+            display: flex;
+            gap: 8px;
+            margin-left: 10px;
+            flex-wrap: wrap;
+        }
+
+        .share-btn, .delete-btn, .react-btn, .view-btn {
+            padding: 5px 10px;
+            font-size: 0.8em;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            white-space: nowrap;
+        }
+
+        .share-btn {
+            background: rgba(100, 200, 255, 0.7);
+            color: #fff;
+        }
+
+        .share-btn:hover {
+            background: rgba(100, 200, 255, 0.9);
+            transform: scale(1.05);
+        }
+
+        .react-btn {
+            background: rgba(255, 100, 200, 0.7);
+            color: #fff;
+        }
+
+        .react-btn:hover {
+            background: rgba(255, 100, 200, 0.9);
+            transform: scale(1.05);
+        }
+
+        .view-btn {
+            background: rgba(100, 255, 150, 0.7);
+            color: #fff;
+        }
+
+        .view-btn:hover {
+            background: rgba(100, 255, 150, 0.9);
+            transform: scale(1.05);
+        }
+
+        .delete-btn {
+            background: rgba(255, 100, 100, 0.7);
+            color: #fff;
+        }
+
+        .delete-btn:hover {
+            background: rgba(255, 100, 100, 0.9);
+            transform: scale(1.05);
+        }
+
+        .reactions-display {
+            font-size: 0.9em;
+            margin-top: 8px;
+            padding: 8px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+            color: #ffd700;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #0f4c27 0%, #165c3a 50%, #0a2e15 100%);
+            margin: 5% auto;
+            padding: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 15px;
+            width: 90%;
+            max-width: 600px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .close-btn {
+            color: #fff;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #ffd700;
+        }
+
+        .wish-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ffd700;
+        }
+
+        .wish-card h3 {
+            color: #ffd700;
+            margin-bottom: 10px;
+        }
+
+        .wish-card p {
+            color: #fff;
+            margin: 10px 0;
+            line-height: 1.6;
+        }
+
+        .recipient-section {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+
+        .recipient-section label {
+            color: #ffd700;
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .recipient-section input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+            margin-bottom: 10px;
+        }
+
+        .reaction-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+
+        .emoji-btn {
+            padding: 10px 15px;
+            font-size: 1.5em;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .emoji-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: #ffd700;
+            transform: scale(1.1);
+        }
+
+        .reaction-count {
+            display: flex;
+            gap: 15px;
+            margin: 10px 0;
+            flex-wrap: wrap;
+        }
+
+        .reaction-item {
+            color: #fff;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 12px;
+            border-radius: 5px;
+            font-size: 0.9em;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+            min-width: 120px;
+        }
+
+        .modal-buttons button:hover {
+            transform: scale(1.05);
+        }
+
+        .share-modal-btn {
+            background: linear-gradient(135deg, #64c8ff, #4db8ff);
+            color: #000;
+        }
+
+        .close-modal-btn {
+            background: linear-gradient(135deg, #ff6464, #ff5050);
+            color: #fff;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .input-section {
+            margin-top: 20px;
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .input-section input {
+            padding: 12px;
+            border: 2px solid #ffd700;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.3s ease;
+            flex: 1;
+            min-width: 150px;
+        }
+
+        #nameInput {
+            min-width: 120px;
+            flex: 0 1 auto;
+        }
+
+        #wishInput {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .input-section input:focus {
+            border-color: #ff0000;
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .input-section input::placeholder {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .input-section button {
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #ffd700, #ffed4e);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-transform: uppercase;
+        }
+
+        .input-section button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .input-section button:active {
+            transform: scale(0.98);
+        }
+
+        .message {
+            text-align: center;
+            color: #fff;
+            font-size: 1.1em;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 215, 0, 0.1);
+            border-radius: 8px;
+            border: 1px solid #ffd700;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        .christmas-text {
+            color: #ffd700;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1><span class="emoji">🎄</span> Christmas & New Year Countdown <span class="emoji">🎄</span></h1>
+        
+        <div style="margin-bottom: 30px;">
+            <h2 style="color: #ffd700; text-align: center; margin-bottom: 15px;">🎄 Christmas Countdown</h2>
+            <div class="countdown" id="countdownChristmas">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="daysChristmas">0</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hoursChristmas">0</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutesChristmas">0</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="secondsChristmas">0</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-bottom: 30px;">
+            <h2 style="color: #ffd700; text-align: center; margin-bottom: 15px;">🎆 Happy New Year Countdown</h2>
+            <div class="countdown" id="countdownNewYear">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="daysNewYear">0</div>
+                    <div class="countdown-label">Days</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hoursNewYear">0</div>
+                    <div class="countdown-label">Hours</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutesNewYear">0</div>
+                    <div class="countdown-label">Minutes</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="secondsNewYear">0</div>
+                    <div class="countdown-label">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="message" id="message"></div>
+
+        <div class="wishes-section">
+            <h2><span class="emoji">⭐</span> Make a Wish <span class="emoji">⭐</span></h2>
+            <div class="input-section">
+                <input type="text" id="nameInput" placeholder="Your name..." maxlength="50">
+                <input type="text" id="wishInput" placeholder="Enter your Christmas wish..." maxlength="100">
+                <button onclick="addWish()">Add</button>
+            </div>
+            <ul class="wishes-list" id="wishesList"></ul>
+        </div>
+    </div>
+
+    <!-- Wish View Modal -->
+    <div id="wishModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeWishModal()">&times;</span>
+            
+            <div id="wishDisplay"></div>
+            
+            <div class="recipient-section">
+                <label for="recipientName">👤 Your Name (Recipient):</label>
+                <input type="text" id="recipientName" placeholder="Enter your name..." maxlength="50">
+            </div>
+
+            <div class="reaction-buttons">
+                <button class="emoji-btn" onclick="addReaction(0)">❤️</button>
+                <button class="emoji-btn" onclick="addReaction(1)">😊</button>
+                <button class="emoji-btn" onclick="addReaction(2)">🎄</button>
+                <button class="emoji-btn" onclick="addReaction(3)">⭐</button>
+                <button class="emoji-btn" onclick="addReaction(4)">🎅</button>
+                <button class="emoji-btn" onclick="addReaction(5)">🎁</button>
+            </div>
+
+            <div id="reactionsDisplay" class="reaction-count"></div>
+
+            <div class="modal-buttons">
+                <button class="share-modal-btn" onclick="shareFromModal()">📤 Share Response</button>
+                <button class="close-modal-btn" onclick="closeWishModal()">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentWishIndex = null;
+        const reactionEmojis = ['❤️', '😊', '🎄', '⭐', '🎅', '🎁'];
+
+        // Load wishes from localStorage
+        function loadWishes() {
+            const wishes = JSON.parse(localStorage.getItem('christmasWishes')) || [];
+            const wishesList = document.getElementById('wishesList');
+            wishesList.innerHTML = '';
+            wishes.forEach((wish, index) => {
+                const li = document.createElement('li');
+                const content = document.createElement('div');
+                content.className = 'wish-content';
+                
+                const wishText = document.createElement('span');
+                wishText.className = 'wish-text';
+                wishText.textContent = wish.text;
+                content.appendChild(wishText);
+                
+                if (wish.name) {
+                    const author = document.createElement('span');
+                    author.className = 'wish-author';
+                    author.textContent = `— ${wish.name}`;
+                    content.appendChild(author);
+                }
+                
+                li.appendChild(content);
+                
+                // Action buttons
+                const actions = document.createElement('div');
+                actions.className = 'wish-actions';
+                
+                const shareBtn = document.createElement('button');
+                shareBtn.className = 'share-btn';
+                shareBtn.textContent = '📤 Share';
+                shareBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    shareWish(wish, index);
+                };
+                
+                const viewBtn = document.createElement('button');
+                viewBtn.className = 'view-btn';
+                viewBtn.textContent = '👀 View';
+                viewBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    viewWishModal(wish, index);
+                };
+                
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'delete-btn';
+                deleteBtn.textContent = '🗑️ Delete';
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    removeWish(index);
+                };
+                
+                actions.appendChild(shareBtn);
+                actions.appendChild(viewBtn);
+                actions.appendChild(deleteBtn);
+                li.appendChild(actions);
+                
+                wishesList.appendChild(li);
+            });
+        }
+
+        // Add wish
+        function addWish() {
+            const nameInput = document.getElementById('nameInput');
+            const wishInput = document.getElementById('wishInput');
+            const name = nameInput.value.trim();
+            const wish = wishInput.value.trim();
+            
+            if (wish.length === 0) {
+                alert('Please enter a wish!');
+                return;
+            }
+
+            const wishes = JSON.parse(localStorage.getItem('christmasWishes')) || [];
+            wishes.push({
+                text: wish,
+                name: name || 'Anonymous',
+                timestamp: new Date().toLocaleString(),
+                reactions: {
+                    '❤️': [],
+                    '😊': [],
+                    '🎄': [],
+                    '⭐': [],
+                    '🎅': [],
+                    '🎁': []
+                }
+            });
+            localStorage.setItem('christmasWishes', JSON.stringify(wishes));
+            nameInput.value = '';
+            wishInput.value = '';
+            loadWishes();
+        }
+
+        // Remove wish
+        function removeWish(index) {
+            const wishes = JSON.parse(localStorage.getItem('christmasWishes')) || [];
+            wishes.splice(index, 1);
+            localStorage.setItem('christmasWishes', JSON.stringify(wishes));
+            loadWishes();
+        }
+
+        // Share wish
+        function shareWish(wish, index) {
+            const shareText = `🎄 ${wish.name} is wishing you Merry Christmas and a Happy New Year! 🎄\n\nWish: "${wish.text}"\n\n✨ Spread the Christmas cheer! ✨`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: '🎄 Christmas Wish',
+                    text: shareText,
+                }).catch(err => console.log('Share cancelled'));
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Wish copied to clipboard!');
+                }).catch(() => {
+                    alert(shareText);
+                });
+            }
+        }
+
+        // View wish modal
+        function viewWishModal(wish, index) {
+            currentWishIndex = index;
+            const modal = document.getElementById('wishModal');
+            const wishDisplay = document.getElementById('wishDisplay');
+            
+            wishDisplay.innerHTML = `
+                <div class="wish-card">
+                    <h3>🎄 A Christmas Wish from ${wish.name}</h3>
+                    <p><strong>Wish:</strong> "${wish.text}"</p>
+                    <p style="font-size: 0.9em; color: rgba(255, 215, 0, 0.7);">Sent on: ${wish.timestamp}</p>
+                </div>
+            `;
+
+            document.getElementById('recipientName').value = '';
+            displayReactions(wish);
+            modal.style.display = 'block';
+        }
+
+        // Close modal
+        function closeWishModal() {
+            document.getElementById('wishModal').style.display = 'none';
+            currentWishIndex = null;
+        }
+
+        // Add reaction
+        function addReaction(reactionIndex) {
+            const recipientName = document.getElementById('recipientName').value.trim();
+            
+            if (!recipientName) {
+                alert('Please enter your name to react!');
+                return;
+            }
+
+            if (currentWishIndex === null) return;
+
+            const wishes = JSON.parse(localStorage.getItem('christmasWishes')) || [];
+            const emoji = reactionEmojis[reactionIndex];
+            
+            if (!wishes[currentWishIndex].reactions) {
+                wishes[currentWishIndex].reactions = {
+                    '❤️': [], '😊': [], '🎄': [], '⭐': [], '🎅': [], '🎁': []
+                };
+            }
+
+            // Check if recipient already reacted with this emoji
+            const hasReacted = wishes[currentWishIndex].reactions[emoji].some(r => r.name === recipientName);
+            
+            if (!hasReacted) {
+                wishes[currentWishIndex].reactions[emoji].push({
+                    name: recipientName,
+                    timestamp: new Date().toLocaleString()
+                });
+            }
+
+            localStorage.setItem('christmasWishes', JSON.stringify(wishes));
+            displayReactions(wishes[currentWishIndex]);
+            loadWishes();
+        }
+
+        // Display reactions
+        function displayReactions(wish) {
+            const reactionsDisplay = document.getElementById('reactionsDisplay');
+            reactionsDisplay.innerHTML = '';
+
+            if (!wish.reactions) return;
+
+            Object.keys(wish.reactions).forEach(emoji => {
+                const reactions = wish.reactions[emoji];
+                if (reactions.length > 0) {
+                    const names = reactions.map(r => r.name).join(', ');
+                    const item = document.createElement('div');
+                    item.className = 'reaction-item';
+                    item.textContent = `${emoji} ${names}`;
+                    reactionsDisplay.appendChild(item);
+                }
+            });
+        }
+
+        // Share from modal
+        function shareFromModal() {
+            const wishes = JSON.parse(localStorage.getItem('christmasWishes')) || [];
+            const wish = wishes[currentWishIndex];
+            const recipientName = document.getElementById('recipientName').value.trim() || 'Everyone';
+
+            let reactionText = '';
+            if (wish.reactions) {
+                Object.keys(wish.reactions).forEach(emoji => {
+                    if (wish.reactions[emoji].length > 0) {
+                        const names = wish.reactions[emoji].map(r => r.name).join(', ');
+                        reactionText += `\n${emoji} ${names}`;
+                    }
+                });
+            }
+
+            const shareText = `🎄 ${wish.name} is wishing you Merry Christmas and a Happy New Year! 🎄\n\nWish: "${wish.text}"\n\n${recipientName} received this wish with joy!${reactionText}\n\n✨ Spread the Christmas cheer! ✨`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: '🎄 Christmas Wish Response',
+                    text: shareText,
+                }).catch(err => console.log('Share cancelled'));
+            } else {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    alert('Wish response copied to clipboard! Share it with others!');
+                }).catch(() => {
+                    alert(shareText);
+                });
+            }
+        }
+
+        // Allow Enter key to add wish
+        document.getElementById('wishInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addWish();
+            }
+        });
+
+        document.getElementById('nameInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('wishInput').focus();
+            }
+        });
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('wishModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+
+        // Update countdown
+        function updateCountdown() {
+            const now = new Date();
+            const currentYear = now.getFullYear();
+            
+            // Christmas countdown
+            const christmas = new Date(currentYear, 11, 25); // December 25
+            if (now > christmas) {
+                christmas.setFullYear(currentYear + 1);
+            }
+            
+            // New Year countdown
+            let newYear = new Date(currentYear + 1, 0, 1); // January 1
+            if (now > newYear) {
+                newYear = new Date(currentYear + 2, 0, 1);
+            }
+
+            // Calculate Christmas countdown
+            const diffChristmas = christmas - now;
+            const daysChristmas = Math.floor(diffChristmas / (1000 * 60 * 60 * 24));
+            const hoursChristmas = Math.floor((diffChristmas % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutesChristmas = Math.floor((diffChristmas % (1000 * 60 * 60)) / (1000 * 60));
+            const secondsChristmas = Math.floor((diffChristmas % (1000 * 60)) / 1000);
+
+            // Calculate New Year countdown
+            const diffNewYear = newYear - now;
+            const daysNewYear = Math.floor(diffNewYear / (1000 * 60 * 60 * 24));
+            const hoursNewYear = Math.floor((diffNewYear % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutesNewYear = Math.floor((diffNewYear % (1000 * 60 * 60)) / (1000 * 60));
+            const secondsNewYear = Math.floor((diffNewYear % (1000 * 60)) / 1000);
+
+            // Update Christmas display
+            document.getElementById('daysChristmas').textContent = String(daysChristmas).padStart(2, '0');
+            document.getElementById('hoursChristmas').textContent = String(hoursChristmas).padStart(2, '0');
+            document.getElementById('minutesChristmas').textContent = String(minutesChristmas).padStart(2, '0');
+            document.getElementById('secondsChristmas').textContent = String(secondsChristmas).padStart(2, '0');
+
+            // Update New Year display
+            document.getElementById('daysNewYear').textContent = String(daysNewYear).padStart(2, '0');
+            document.getElementById('hoursNewYear').textContent = String(hoursNewYear).padStart(2, '0');
+            document.getElementById('minutesNewYear').textContent = String(minutesNewYear).padStart(2, '0');
+            document.getElementById('secondsNewYear').textContent = String(secondsNewYear).padStart(2, '0');
+
+            // Update message
+            const message = document.getElementById('message');
+            
+            if (daysChristmas === 0 && hoursChristmas === 0 && minutesChristmas === 0 && secondsChristmas === 0) {
+                message.innerHTML = '<span class="emoji">🎉</span> <span class="christmas-text">MERRY CHRISTMAS!</span> <span class="emoji">🎉</span>';
+                message.style.background = 'rgba(255, 215, 0, 0.2)';
+            } else if (daysNewYear === 0 && hoursNewYear === 0 && minutesNewYear === 0 && secondsNewYear === 0) {
+                message.innerHTML = '<span class="emoji">🎆</span> <span class="christmas-text">HAPPY NEW YEAR!</span> <span class="emoji">🎆</span>';
+                message.style.background = 'rgba(255, 215, 0, 0.2)';
+            } else if (daysChristmas <= 3) {
+                message.textContent = '🎄 Christmas is almost here! 🎄';
+            } else if (daysChristmas <= 7) {
+                message.textContent = '🎅 One week until Christmas! 🎅';
+            } else if (daysChristmas <= 14) {
+                message.textContent = '⛄ Two weeks to Christmas! ⛄';
+            } else if (daysNewYear <= 7) {
+                message.textContent = '🎆 One week until Happy New Year! 🎆';
+            } else if (daysNewYear <= 14) {
+                message.textContent = '🎊 Two weeks until the New Year! 🎊';
+            } else {
+                message.textContent = `✨ ${daysChristmas} days until Christmas and ${daysNewYear} days until the New Year! ✨`;
+            }
+        }
+
+        // Initial load
+        updateCountdown();
+        loadWishes();
+        
+        // Update every second
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
